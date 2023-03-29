@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/header :: head}"></div>
+
+    <title>Document</title>
+</head>
+<body>
+<h1 class="text-center">List of Pizza</h1>
+<ul>
+    <li th:each="pizza : ${list}" th:text="${pizza.name}"></li>
+</ul>
+</body>
+</html>

@@ -15,7 +15,12 @@ import java.util.List;
 public class PizzaController {
     @Autowired
     private PizzaRepository pizzaRepository;
+
     @GetMapping
+    public String welcome(){
+        return "welcome";
+    }
+    @GetMapping("/menu")
     public String index(Model model){
         List<Pizza> pizzas = pizzaRepository.findAll();
         model.addAttribute("list" , pizzas);

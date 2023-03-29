@@ -2,13 +2,38 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="~{fragments/header :: head}"></div>
-
-    <title>Document</title>
+    <title>Pizzeria</title>
 </head>
 <body>
-<h1 class="text-center">List of Pizza</h1>
-<ul>
-    <li th:each="pizza : ${list}" th:text="${pizza.name}"></li>
-</ul>
+
+<div class="d-flex">
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <main id="main-container" class="w-100 position-relative">
+
+        <h1 class="text-center my-4">Menu</h1>
+
+        <div class="d-flex justify-content-center">
+            <table class="w-50">
+                <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Name</td>
+                    <td>Price €</td>
+                </tr>
+                </thead>
+                <tbody th:each="pizza : ${list}" th:object="${pizza}" >
+                <tr>
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{name}"></td>
+                    <td th:text="*{price}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+</div>
+
+
 </body>
 </html>

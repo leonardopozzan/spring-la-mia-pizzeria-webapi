@@ -12,8 +12,15 @@
 
         <h1 class="text-center my-4">Menu</h1>
 
+        <div class="text-center my-4">
+            <form action="/menu/search" method="get">
+                <input type="text" name="name">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
         <div class="d-flex justify-content-center">
-            <table class="w-50">
+            <table th:if="${list.size > 0}" class="w-50">
                 <thead>
                 <tr>
                     <td>Id</td>
@@ -24,11 +31,12 @@
                 <tbody th:each="pizza : ${list}" th:object="${pizza}" >
                 <tr>
                     <td th:text="*{id}"></td>
-                    <td th:text="*{name}"></td>
-                    <td th:text="*{price}"></td>
+                    <td ><a th:href="@{|/menu/*{id}|}" th:text="*{name}"></a></td>
+                    <td >[[*{price}]] €</td>
                 </tr>
                 </tbody>
             </table>
+            <h4 th:if="${list.size == 0}" class="text-danger" > Non ci sono pizze!</h4>
         </div>
 
     </main>

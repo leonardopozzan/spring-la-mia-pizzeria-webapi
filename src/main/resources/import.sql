@@ -1,5 +1,5 @@
-INSERT INTO pizzeria.pizzas(name, description, price)VALUES('margherita', 'pomodoro, mozzarella, basilico', 4.50);
-INSERT INTO pizzeria.pizzas(name, description, price)VALUES('prosciutto funghi', 'pomodoro, mozzarella, prosciutto, funghi', 6.50);
-INSERT INTO pizzeria.pizzas(name, description, price)VALUES('diavola', 'pomodoro, mozzarella, salamino', 5.50);
-INSERT INTO pizzeria.pizzas(name, description, price)VALUES('patatosa', 'pomodoro, mozzarella, papatine fritte', 5.50);
-INSERT INTO pizzeria.pizzas(name, description, price)VALUES('boscaiola', 'pomodoro, mozzarella, speck, salsiccia, funghi', 8.50);
+INSERT INTO pizzeria.pizzas(name, description, price, image)VALUES('margherita', 'pomodoro, mozzarella, basilico', 4.50, "https://www.finedininglovers.it/sites/g/files/xknfdk1106/files/styles/recipes_1200_800_fallback/public/fdl_content_import_it/margherita-50kalo.jpg?itok=v9nHxNMS");
+INSERT INTO pizzeria.pizzas(name, description, price, image)VALUES('prosciutto funghi', 'pomodoro, mozzarella, prosciutto, funghi', 6.50, "https://www.italianstylecooking.net/wp-content/uploads/2022/08/Pizza-mit-Schinken-und-Pilzen-768x512.jpg");
+INSERT INTO pizzeria.pizzas(name, description, price, image)VALUES('diavola', 'pomodoro, mozzarella, salamino', 5.50, "https://www.negroni.com/sites/negroni.com/files/styles/scale__1440_x_1440_/public/pizza_rustica.jpg?itok=Lbp_jtZW");
+INSERT INTO pizzeria.pizzas(name, description, price, image)VALUES('patatosa', 'pomodoro, mozzarella, papatine fritte', 5.50, "https://www.pizzeriagiuseppesalsiera.it/wp-content/uploads/2021/01/WhatsApp-Image-2021-01-19-at-14.03.20.jpeg");
+INSERT INTO pizzeria.pizzas(name, description, price, image)VALUES('boscaiola', null, 8.50, null);

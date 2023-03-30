@@ -9,19 +9,26 @@
 <div class="d-flex">
     <div th:replace="~{fragments/sidebar :: sidebar}"></div>
     <main id="main-container" class="w-100 position-relative">
-        <h1 class="text-center my-4">Dettagli della pizza</h1>
+        <h1 class="text-center mt-4 mb-5">Dettagli della pizza</h1>
 
         <div class="d-flex justify-content-center">
-            <div>
+            <div class="img-box">
+                <img th:if="${#strings.isEmpty(pizza.image)}" src="https://picsum.photos/id/23/1920/1080" alt="">
+                <img th:unless="${#strings.isEmpty(pizza.image)}" th:src="${pizza.image}" alt="">
+
+            </div>
+            <div class="details">
                 <dl th:object="${pizza}">
                     <dt>Id</dt>
                     <dd th:text="*{id}"></dd>
                     <dt>Name</dt>
                     <dd th:text="*{name}"></dd>
                     <dt>Price</dt>
-                    <dd th:text="*{price}"></dd>
-                    <dt>Ingredients</dt>
-                    <dd th:text="*{description}"></dd>
+                    <dd> [[*{price}]] &euro;</dd>
+                    <th:block th:unless="${#strings.isEmpty(pizza.description)}">
+                        <dt>Ingredients</dt>
+                        <dd th:text="*{description}"></dd>
+                    </th:block>
 
                 </dl>
             </div>

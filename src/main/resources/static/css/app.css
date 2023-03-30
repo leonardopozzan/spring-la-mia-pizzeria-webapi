@@ -1,3 +1,4 @@
+/**************** Common *******************/
 *{
     margin: 0;
     padding: 0;
@@ -17,6 +18,9 @@ a{
 img{
     max-width: 100%;
 }
+
+/**************** Sidebar *******************/
+
 .side-bar {
     width: 20%;
     min-width: 250px;
@@ -41,6 +45,8 @@ img{
 .side-bar ul a{
     color: white;
 }
+
+/**************** Tables *******************/
 
 table thead tr {
         background-color: var(--red);
@@ -70,3 +76,13 @@ table thead tr {
     table button {
         color: white;
     }
+
+/**************** ShowPage *******************/
+.img-box{
+    width:400px;
+    margin-right: 20px;
+}
+
+.details dd{
+    text-transform: capitalize;
+}

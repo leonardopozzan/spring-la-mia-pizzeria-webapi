@@ -13,8 +13,8 @@
         <h1 class="text-center my-4">Menu</h1>
 
         <div class="text-center my-4">
-            <form action="/menu/search" method="get">
-                <input type="text" name="name">
+            <form action="/menu" method="get">
+                <input type="text" name="name" th:value="${keyword}">
                 <button type="submit" class="btn btn-primary">Search</button>
             </form>
         </div>

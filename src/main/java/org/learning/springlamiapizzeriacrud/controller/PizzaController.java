@@ -61,6 +61,8 @@ public class PizzaController {
         if(bindingResult.hasErrors()){
             return "pizzas/create";
         }
+        pizzaService.createPizza(formPizza);
+        model.addAttribute("success", true);
         return "redirect:/menu";
     }
 }

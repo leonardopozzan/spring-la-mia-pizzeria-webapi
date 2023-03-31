@@ -4,10 +4,11 @@ import org.learning.springlamiapizzeriacrud.exceptions.PizzaNotFoundException;
 import org.learning.springlamiapizzeriacrud.model.Pizza;
 import org.learning.springlamiapizzeriacrud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-
+@Service
 public class PizzaService {
 
     @Autowired
@@ -22,6 +23,11 @@ public class PizzaService {
     }
 
     public Pizza getPizzaById(int id) throws  PizzaNotFoundException{
-        return pizzaRepository.findById(id).orElseThrow(()-> new PizzaNotFoundException("nessuna pizza trovata"));
+        return pizzaRepository.findById(id).orElseThrow(PizzaNotFoundException::new);
+    }
+
+    public void createPizza(Pizza formPizza){
+        Pizza newPizza = new Pizza(formPizza);
+        pizzaRepository.save(newPizza);
     }
 }

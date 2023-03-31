@@ -1,10 +1,7 @@
 package org.learning.springlamiapizzeriacrud.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
 
@@ -16,7 +13,8 @@ public class Pizza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotEmpty
-    @Size(min=3, max=50, message="il nome deve avere tra i 3 e i 50 caratteri")
+    @Size(min = 3, message = "Il nome deve essere di almeno 3 caratteri")
+    @Size(max = 50, message = "Il nome non deve superare i 50 caratteri")
     @Column(nullable = false)
     private String name;
     @NotEmpty

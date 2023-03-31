@@ -18,9 +18,11 @@
                 <button type="submit" class="btn btn-primary">Search</button>
             </form>
         </div>
-
-        <div class="d-flex justify-content-center">
-            <table th:if="${list.size > 0}" class="w-50">
+        <div class="d-flex justify-content-center flex-wrap align-items-start">
+            <div class="col-7 mb-2">
+                <a th:href="@{/menu/create}" class="btn btn-primary"><i class="fa-solid fa-plus"></i></a>
+            </div>
+            <table th:if="${list.size > 0}" class="col-7">
                 <thead>
                 <tr>
                     <td>Id</td>

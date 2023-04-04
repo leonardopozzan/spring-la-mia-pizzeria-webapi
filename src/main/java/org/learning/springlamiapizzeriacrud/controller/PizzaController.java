@@ -3,6 +3,7 @@ package org.learning.springlamiapizzeriacrud.controller;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.learning.springlamiapizzeriacrud.exceptions.PizzaNotFoundException;
+import org.learning.springlamiapizzeriacrud.model.AlertMessage;
 import org.learning.springlamiapizzeriacrud.model.Pizza;
 import org.learning.springlamiapizzeriacrud.repository.PizzaRepository;
 import org.learning.springlamiapizzeriacrud.service.PizzaService;
@@ -15,6 +16,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.learning.springlamiapizzeriacrud.model.AlertMessage.AlertMessageType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,4 +99,24 @@ public class PizzaController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza con id" + id + " non trovata");
         }
     }
+
+    @GetMapping("delete/{id}")
+    public String doDelete (@PathVariable Integer id,  RedirectAttributes redirectAttributes ){
+        try {
+            boolean success = pizzaService.deleteById(id);
+            if (success) {
+                AlertMessage alertMessage = new AlertMessage(AlertMessageType.SUCCESS, "Pizza con " + id + " eliminata con succeso");
+                redirectAttributes.addFlashAttribute("message", alertMessage);
+
+            } else {
+                AlertMessage alertMessage = new AlertMessage(AlertMessageType.ERROR, "Impossibile eliminare la pizza con id " + id);
+                redirectAttributes.addFlashAttribute("message", alertMessage);
+            }
+        } catch (PizzaNotFoundException e){
+            AlertMessage alertMessage = new AlertMessage(AlertMessageType.ERROR, "Pizza con id" + id + " non trovata");
+            redirectAttributes.addFlashAttribute("message", alertMessage);
+        }
+        return "redirect:/menu";
+    }
+
 }

@@ -41,12 +41,11 @@ public class Pizza {
         this.createdAt = LocalDateTime.now();
     }
 
-    public Pizza copyFrom(Pizza pizza){
+    public void copyFrom(Pizza pizza){
         this.name = pizza.getName();
         this.price = pizza.getPrice();
         this.description = pizza.getDescription();
         this.image = pizza.getImage();
-        return this;
     }
 
     public LocalDateTime getCreatedAt() {

@@ -39,21 +39,20 @@ public class PizzaController {
         return "pizzas/index";
     }
     @GetMapping("/{id}")
-    public String show(Model model, @PathVariable int id){
-        Pizza pizza;
+    public String show(Model model, @PathVariable Integer id){
         try {
-            pizza = pizzaService.getPizzaById(id);
+            Pizza pizza = pizzaService.getPizzaById(id);
+            model.addAttribute("pizza", pizza);
+            return "pizzas/show";
         } catch (PizzaNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza con id" + id + " non trovata");
         }
-        model.addAttribute("pizza", pizza);
-        return "pizzas/show";
     }
 
     @GetMapping("/create")
     public String create(Model model){
         model.addAttribute("pizza", new Pizza());
-        return "pizzas/create";
+        return "pizzas/editCreate";
     }
 
     @PostMapping("/create")
@@ -64,5 +63,17 @@ public class PizzaController {
         pizzaService.createPizza(formPizza);
         model.addAttribute("success", true);
         return "redirect:/menu";
+    }
+
+    @GetMapping("edit/{id}")
+    public String edit(Model model, @PathVariable Integer id){
+        try {
+            Pizza pizza = pizzaService.getPizzaById(id);
+            model.addAttribute("pizza" , pizza);
+            return "pizzas/editCreate";
+        } catch (PizzaNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza con id" + id + " non trovata");
+        }
+
     }
 }

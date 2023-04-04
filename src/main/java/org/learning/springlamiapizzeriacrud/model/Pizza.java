@@ -15,7 +15,7 @@ public class Pizza {
     @NotEmpty
     @Size(min = 3, message = "Il nome deve essere di almeno 3 caratteri")
     @Size(max = 50, message = "Il nome non deve superare i 50 caratteri")
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
     @NotEmpty
     @Lob

@@ -28,6 +28,7 @@
                     <td>Id</td>
                     <td>Name</td>
                     <td>Price €</td>
+                    <td></td>
                 </tr>
                 </thead>
                 <tbody th:each="pizza : ${list}" th:object="${pizza}" >
@@ -35,6 +36,10 @@
                     <td th:text="*{id}"></td>
                     <td ><a th:href="@{|/menu/*{id}|}" th:text="*{name}"></a></td>
                     <td >[[*{price}]] &euro;</td>
+                    <td>
+                        <a class="btn btn-primary me-3" th:href="@{|/menu/edit/*{id}|}" ><i class="fa-solid fa-pencil"></i></a>
+                        <a class="btn btn-danger" th:href="@{|/menu/delete/*{id}|}" ><i class="fa-solid fa-trash-can"></i></a>
+                    </td>
                 </tr>
                 </tbody>
             </table>

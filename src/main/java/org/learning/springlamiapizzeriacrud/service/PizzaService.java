@@ -26,8 +26,20 @@ public class PizzaService {
         return pizzaRepository.findById(id).orElseThrow(PizzaNotFoundException::new);
     }
 
-    public void createPizza(Pizza formPizza){
+    public Pizza createPizza(Pizza formPizza){
         Pizza newPizza = new Pizza(formPizza);
-        pizzaRepository.save(newPizza);
+        return pizzaRepository.save(newPizza);
+    }
+
+    public Pizza updatePizza(Pizza formPizza, Integer id) throws  PizzaNotFoundException {
+        Pizza pizzaToUpdate = pizzaRepository.findById(id).orElseThrow(PizzaNotFoundException::new);
+        return pizzaToUpdate.copyFrom(formPizza);
+    }
+
+    public boolean isValidName(Pizza formPizza){
+        if (formPizza.getId() == null) {
+            return !pizzaRepository.existsByName(formPizza.getName());
+        }
+        return !pizzaRepository.existsByNameAndIdNot(formPizza.getName(), formPizza.getId());
     }
 }

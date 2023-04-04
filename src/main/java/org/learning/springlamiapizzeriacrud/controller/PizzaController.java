@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -57,12 +58,14 @@ public class PizzaController {
 
     @PostMapping("/create")
     public String doCreate(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model){
-        if(bindingResult.hasErrors()){
-            return "pizzas/create";
+        if(!pizzaService.isValidName(formPizza)){
+            bindingResult.addError(new FieldError("pizza", "name", formPizza.getName(), false, null, null, "Il nome deve essere unico"));
         }
-        pizzaService.createPizza(formPizza);
-        model.addAttribute("success", true);
-        return "redirect:/menu";
+        if(bindingResult.hasErrors()){
+            return "pizzas/editCreate";
+        }
+        Pizza createdPizza = pizzaService.createPizza(formPizza);
+        return "redirect:/menu/"+ Integer.toString(createdPizza.getId());
     }
 
     @GetMapping("edit/{id}")
@@ -74,6 +77,23 @@ public class PizzaController {
         } catch (PizzaNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza con id" + id + " non trovata");
         }
+    }
 
+    @PostMapping("edit/{id}")
+    public String doEdit(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult,Model model, @PathVariable Integer id){
+        if(!pizzaService.isValidName(formPizza)){
+            bindingResult.addError(new FieldError("pizza", "name", formPizza.getName(), false, null, null, "Il nome deve essere unico"));
+        }
+        if(bindingResult.hasErrors()){
+            return "pizzas/editCreate";
+        }
+
+        try{
+            Pizza updatedPizza = pizzaService.updatePizza(formPizza, id);
+            return "redirect:/menu/" + Integer.toString(updatedPizza.getId());
+
+        } catch (PizzaNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza con id" + id + " non trovata");
+        }
     }
 }

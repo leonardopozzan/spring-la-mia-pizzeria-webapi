@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name="pizzas")
@@ -29,6 +30,10 @@ public class Pizza {
     @Column(nullable = false, name = "created_at")
     private LocalDateTime createdAt;
 
+    @OneToMany(mappedBy = "pizza")
+    private List<SpecialOffer> specialOffers;
+
+
     public Pizza(){
         super();
     }
@@ -46,6 +51,18 @@ public class Pizza {
         this.price = pizza.getPrice();
         this.description = pizza.getDescription();
         this.image = pizza.getImage();
+    }
+
+    public List<SpecialOffer> getSpecialOffers() {
+        return specialOffers;
+    }
+
+    public void setSpecialOffers(List<SpecialOffer> specialOffers) {
+        this.specialOffers = specialOffers;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public LocalDateTime getCreatedAt() {

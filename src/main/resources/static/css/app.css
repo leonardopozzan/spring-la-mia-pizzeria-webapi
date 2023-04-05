@@ -78,11 +78,3 @@ table thead tr {
     }
 
 /**************** ShowPage *******************/
-.img-box{
-    width:400px;
-    margin-right: 20px;
-}
-
-.details dd{
-    text-transform: capitalize;
-}

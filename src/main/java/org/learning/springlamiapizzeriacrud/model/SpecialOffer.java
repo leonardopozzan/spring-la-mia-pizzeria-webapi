@@ -2,6 +2,7 @@ package org.learning.springlamiapizzeriacrud.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
@@ -16,8 +17,10 @@ public class SpecialOffer {
     @Size(max = 50, message = "Il titolo non deve superare i 50 caratteri")
     @Column(nullable = false)
     private String title;
+    @NotNull
     @Column(nullable = false)
     private LocalDate startingDate;
+    @NotNull
     @Column(nullable = false)
     private LocalDate endingDate;
 
@@ -33,10 +36,22 @@ public class SpecialOffer {
         this.pizza = pizza;
     }
 
+    public SpecialOffer(SpecialOffer specialOffer) {
+        this.title = specialOffer.title;
+        this.startingDate = specialOffer.startingDate;
+        this.endingDate = specialOffer.endingDate;
+        this.pizza = specialOffer.pizza;
+    }
+
     public SpecialOffer(){
         super();
     }
 
+    public void copyFrom(SpecialOffer specialOffer){
+        this.title = specialOffer.title;
+        this.startingDate = specialOffer.startingDate;
+        this.endingDate = specialOffer.endingDate;
+    }
     public Integer getId() {
         return id;
     }

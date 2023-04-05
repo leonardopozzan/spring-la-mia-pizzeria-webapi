@@ -11,26 +11,53 @@
     <main id="main-container" class="w-100 position-relative">
         <h1 class="text-center mt-4 mb-5">Dettagli della pizza</h1>
 
-        <div class="d-flex justify-content-center">
-            <div class="img-box">
+        <div class="d-flex justify-content-center flex-wrap">
+            <div class="col-4 me-3">
                 <img th:if="${#strings.isEmpty(pizza.image)}" src="https://picsum.photos/id/23/1920/1080" alt="">
                 <img th:unless="${#strings.isEmpty(pizza.image)}" th:src="${pizza.image}" alt="">
-
             </div>
-            <div class="details">
+            <div class="text-capitalize col-3">
                 <dl th:object="${pizza}">
                     <dt>Id</dt>
                     <dd th:text="*{id}"></dd>
-                    <dt>Name</dt>
+                    <dt>Nome</dt>
                     <dd th:text="*{name}"></dd>
-                    <dt>Price</dt>
+                    <dt>Prezzo</dt>
                     <dd> [[*{price}]] &euro;</dd>
                     <th:block th:unless="${#strings.isEmpty(pizza.description)}">
-                        <dt>Ingredients</dt>
+                        <dt>Ingredienti</dt>
                         <dd th:text="*{description}"></dd>
                     </th:block>
-
                 </dl>
+            </div>
+            <div class="col-8">
+                <div class="d-flex align-items-center">
+                    <h3 class="my-3">Lista delle Offerte</h3>
+                    <a class="btn btn-success ms-3" th:href="@{/offers/create(pizzaId=${pizza.id})}" ><i class="fa-solid fa-plus"></i></a>
+                </div>
+                <table th:if="${pizza.specialOffers.size > 0}" class="w-100">
+                    <thead>
+                    <tr>
+                        <td>Id</td>
+                        <td>Titolo</td>
+                        <td>Data di inizio</td>
+                        <td>Data di fine</td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody th:each="specialOffer : ${pizza.specialOffers}" th:object="${specialOffer}" >
+                    <tr>
+                        <td th:text="*{id}"></td>
+                        <td th:text="*{title}"></td>
+                        <td th:text="*{startingDate}"></td>
+                        <td th:text="*{endingDate}"></td>
+                        <td class="d-flex">
+                            <a class="btn btn-primary me-3" th:href="@{|/offers/edit/*{id}}" ><i class="fa-solid fa-pencil"></i></a>
+<!--                            <a class="btn btn-danger" th:href="@{|/menu/edit/*{id}(pizzaId=${pizza.id})|}" ><i class="fa-solid fa-trash-can"></i></a>-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 

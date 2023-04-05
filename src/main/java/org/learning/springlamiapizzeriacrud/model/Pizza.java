@@ -3,6 +3,7 @@ package org.learning.springlamiapizzeriacrud.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -106,5 +107,23 @@ public class Pizza {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Double getTotalDiscount(){
+        if(specialOffers.size() == 0)
+            return (double) 0;
+//        return specialOffers.stream()
+//                .filter(element -> !element.getStartingDate().isAfter(LocalDate.now()) && !element.getEndingDate().isBefore(LocalDate.now()))
+//                .map(item -> item.getDiscount())
+//                .reduce(0, (total, element) -> total + element);
+        return specialOffers.stream()
+                .filter(element -> !element.getStartingDate().isAfter(LocalDate.now()) && !element.getEndingDate().isBefore(LocalDate.now()))
+                .reduce(new SpecialOffer(), SpecialOffer::sumDiscount).getDiscount();
+    }
+
+    public Double getDiscountedPrice(){
+        if(specialOffers.size() == 0)
+            return null;
+        return this.price * (1 - this.getTotalDiscount() / 100);
     }
 }

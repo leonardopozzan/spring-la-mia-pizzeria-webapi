@@ -25,6 +25,15 @@
                         </div>
                     </div>
                     <div>
+                        <label class="form-label" for="discount"> Sconto % </label>
+                        <input class="form-control" type="number" id="discount" th:field="*{discount}" th:errorClass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('discount')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('discount')}" th:text="${err}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
                         <label class="form-label" for="startingDate"> Data di inizio </label>
                         <input class="form-control" type="date" id="startingDate" th:field="*{startingDate}" th:errorClass="is-invalid">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('startingDate')}">
@@ -34,7 +43,7 @@
                         </div>
                     </div>
                     <div>
-                        <label class="form-label" for="endingDate"> Titolo </label>
+                        <label class="form-label" for="endingDate"> Data di fine </label>
                         <input class="form-control" type="date" id="endingDate" th:field="*{endingDate}" th:errorClass="is-invalid">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('endingDate')}">
                             <ul>

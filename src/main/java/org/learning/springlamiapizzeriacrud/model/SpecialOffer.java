@@ -3,6 +3,7 @@ package org.learning.springlamiapizzeriacrud.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
@@ -23,14 +24,18 @@ public class SpecialOffer {
     @NotNull
     @Column(nullable = false)
     private LocalDate endingDate;
-
+    @PositiveOrZero
+    @Column(nullable = false)
+    private Double discount;
     @ManyToOne
     @JoinColumn(name="pizza_id", nullable = false)
     private Pizza pizza;
 
-    public SpecialOffer(Integer id, String title, LocalDate startingDate, LocalDate endingDate, Pizza pizza) {
+
+    public SpecialOffer(Integer id, String title, Double discount , LocalDate startingDate, LocalDate endingDate, Pizza pizza) {
         this.id = id;
         this.title = title;
+        this.discount = discount;
         this.startingDate = startingDate;
         this.endingDate = endingDate;
         this.pizza = pizza;
@@ -38,6 +43,7 @@ public class SpecialOffer {
 
     public SpecialOffer(SpecialOffer specialOffer) {
         this.title = specialOffer.title;
+        this.discount = specialOffer.discount;
         this.startingDate = specialOffer.startingDate;
         this.endingDate = specialOffer.endingDate;
         this.pizza = specialOffer.pizza;
@@ -49,6 +55,7 @@ public class SpecialOffer {
 
     public void copyFrom(SpecialOffer specialOffer){
         this.title = specialOffer.title;
+        this.discount = specialOffer.discount;
         this.startingDate = specialOffer.startingDate;
         this.endingDate = specialOffer.endingDate;
     }
@@ -90,5 +97,19 @@ public class SpecialOffer {
 
     public void setPizza(Pizza pizza) {
         this.pizza = pizza;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+    public SpecialOffer sumDiscount(SpecialOffer specialOffer){
+        if(this.discount == null)
+            this.discount = (double) 0;
+        this.discount += specialOffer.discount;
+        return this;
     }
 }

@@ -12,9 +12,10 @@
         <h1 class="text-center mt-4 mb-5">Dettagli della pizza</h1>
 
         <div class="d-flex justify-content-center flex-wrap">
-            <div class="col-4 me-3">
+            <div class="col-4 me-3 position-relative">
                 <img th:if="${#strings.isEmpty(pizza.image)}" src="https://picsum.photos/id/23/1920/1080" alt="">
                 <img th:unless="${#strings.isEmpty(pizza.image)}" th:src="${pizza.image}" alt="">
+                <div th:if="${pizza.specialOffers.size > 0}" class="discount" th:text="|${pizza.totalDiscount} %|"></div>
             </div>
             <div class="text-capitalize col-3">
                 <dl th:object="${pizza}">
@@ -23,7 +24,12 @@
                     <dt>Nome</dt>
                     <dd th:text="*{name}"></dd>
                     <dt>Prezzo</dt>
-                    <dd> [[*{price}]] &euro;</dd>
+                    <dd>
+                        <span th:text="*{price}" th:classAppend="*{discountedPrice} ? text-decoration-line-through : ''"></span>
+                        <span th:if="*{discountedPrice}" th:text="*{discountedPrice}" class="text-danger" ></span>
+                        <span th:classAppend="*{discountedPrice} ? text-danger : ''">&nbsp;&euro;</span>
+
+                    </dd>
                     <th:block th:unless="${#strings.isEmpty(pizza.description)}">
                         <dt>Ingredienti</dt>
                         <dd th:text="*{description}"></dd>
@@ -40,6 +46,7 @@
                     <tr>
                         <td>Id</td>
                         <td>Titolo</td>
+                        <td>Sconto %</td>
                         <td>Data di inizio</td>
                         <td>Data di fine</td>
                         <td></td>
@@ -49,6 +56,7 @@
                     <tr>
                         <td th:text="*{id}"></td>
                         <td th:text="*{title}"></td>
+                        <td>[[*{discount}]] %</td>
                         <td th:text="*{startingDate}"></td>
                         <td th:text="*{endingDate}"></td>
                         <td class="d-flex">

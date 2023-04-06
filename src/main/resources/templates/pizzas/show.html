@@ -56,8 +56,8 @@
                         <td th:text="*{id}"></td>
                         <td th:text="*{title}"></td>
                         <td>[[*{discount}]] %</td>
-                        <td th:text="*{startingDate}"></td>
-                        <td th:text="*{endingDate}"></td>
+                        <td th:text="${#temporals.format(specialOffer.startingDate, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${#temporals.format(specialOffer.endingDate, 'dd/MM/yyyy')}"></td>
                         <td class="d-flex">
                             <a class="btn btn-primary me-3" th:href="@{|/offers/edit/*{id}|}" ><i class="fa-solid fa-pencil"></i></a>
                             <a class="btn btn-danger" th:href="@{|/offers/delete/*{id}|(pizzaId=${pizza.id})}" ><i class="fa-solid fa-trash-can"></i></a>

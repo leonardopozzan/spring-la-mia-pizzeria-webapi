@@ -67,15 +67,28 @@ public class SpecialOfferController {
     }
 
     @PostMapping("/edit/{id}")
-    public String doEdit(Model model,@Valid @ModelAttribute("specialOffer") SpecialOffer formSpecialOffer, BindingResult bindingResult){
+    public String doEdit(Model model,@Valid @ModelAttribute("specialOffer") SpecialOffer formSpecialOffer, BindingResult bindingResult, @PathVariable Integer id){
         if(bindingResult.hasErrors()){
             return "offers/editCreate";
         }
+
         try{
-            SpecialOffer updatedSpecialOffer = specialOfferService.updateSpecialOffer(formSpecialOffer);
+            SpecialOffer updatedSpecialOffer = specialOfferService.updateSpecialOffer(formSpecialOffer , id);
             return "redirect:/menu/" + Integer.toString(updatedSpecialOffer.getPizza().getId());
         } catch (SpecialOfferNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Offerta con id" + formSpecialOffer.getPizza().getId() + " non trovata");
+        }
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id){
+        try {
+            Integer pizzaId = specialOfferService.delete(id);
+            return "redirect:/menu/" + Integer.toString(pizzaId);
+        } catch (SpecialOfferNotFoundException e ){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Offerta con id" + id + " non trovata");
+        } catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Impossibile eliminare l'offerta con id" + id);
         }
     }
 }

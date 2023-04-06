@@ -12,17 +12,23 @@ public class SpecialOfferService {
     SpecialOfferRepository specialOfferRepository;
 
     public SpecialOffer createSpecialOffer(SpecialOffer formSpecialOffer){
-        SpecialOffer newSpecialOffer = new SpecialOffer(formSpecialOffer);
-        return specialOfferRepository.save(newSpecialOffer);
+//        SpecialOffer newSpecialOffer = new SpecialOffer(formSpecialOffer);
+        return specialOfferRepository.save(formSpecialOffer);
     }
 
     public SpecialOffer getSpecialOfferById(Integer id) throws SpecialOfferNotFoundException{
         return specialOfferRepository.findById(id).orElseThrow(SpecialOfferNotFoundException::new);
     }
 
-    public SpecialOffer updateSpecialOffer(SpecialOffer formSpecialOffer) throws SpecialOfferNotFoundException{
-        SpecialOffer specialOfferToUpdate = specialOfferRepository.findById(formSpecialOffer.getPizza().getId()).orElseThrow(SpecialOfferNotFoundException::new);
+    public SpecialOffer updateSpecialOffer(SpecialOffer formSpecialOffer, Integer id) throws SpecialOfferNotFoundException{
+        SpecialOffer specialOfferToUpdate = specialOfferRepository.findById(id).orElseThrow(SpecialOfferNotFoundException::new);
         specialOfferToUpdate.copyFrom(formSpecialOffer);
         return specialOfferRepository.save(specialOfferToUpdate);
+    }
+
+    public Integer delete(Integer specialOfferId) throws SpecialOfferNotFoundException{
+        SpecialOffer specialOfferToDelete = specialOfferRepository.findById(specialOfferId).orElseThrow(SpecialOfferNotFoundException::new);
+        specialOfferRepository.delete(specialOfferToDelete);
+        return specialOfferToDelete.getPizza().getId();
     }
 }

@@ -41,14 +41,6 @@ public class SpecialOffer {
         this.pizza = pizza;
     }
 
-    public SpecialOffer(SpecialOffer specialOffer) {
-        this.title = specialOffer.title;
-        this.discount = specialOffer.discount;
-        this.startingDate = specialOffer.startingDate;
-        this.endingDate = specialOffer.endingDate;
-        this.pizza = specialOffer.pizza;
-    }
-
     public SpecialOffer(){
         super();
     }

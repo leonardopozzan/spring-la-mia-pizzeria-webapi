@@ -14,7 +14,7 @@
         <div class="d-flex justify-content-center">
             <div class="w-75" th:with="formAction=${edit ? '/offers/edit/' + specialOffer.id : '/offers/create'}" >
                 <form method="post" th:action="@{${formAction}}" th:object="${specialOffer}" >
-                    <input type="hidden" th:field="*{pizza.id}">
+                    <input type="hidden" th:field="*{pizza}">
                     <div>
                         <label class="form-label" for="title"> Titolo </label>
                         <input class="form-control" type="text" id="title" th:field="*{title}" th:errorClass="is-invalid">

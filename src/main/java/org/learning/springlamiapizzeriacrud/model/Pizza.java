@@ -118,11 +118,11 @@ public class Pizza {
         List<SpecialOffer> activeSpecialOffers = this.getActiveSpecialOffer();
         if(activeSpecialOffers.size() == 0)
             return (double) 0;
-//        return activeSpecialOffers.stream()
-//                .map(item -> item.getDiscount())
-//                .reduce(0, (total, element) -> total + element);
         return activeSpecialOffers.stream()
-                .reduce(new SpecialOffer(), SpecialOffer::sumDiscount).getDiscount();
+                .map(SpecialOffer::getDiscount)
+                .reduce((double) 0, Double::sum);
+//        return activeSpecialOffers.stream()
+//                .reduce(new SpecialOffer(), SpecialOffer::sumDiscount).getDiscount();
     }
 
     public Double getDiscountedPrice(){

@@ -98,10 +98,11 @@ public class SpecialOffer {
     public void setDiscount(Double discount) {
         this.discount = discount;
     }
-    public SpecialOffer sumDiscount(SpecialOffer specialOffer){
-        if(this.discount == null)
-            this.discount = (double) 0;
-        this.discount += specialOffer.discount;
-        return this;
-    }
+
+//    public SpecialOffer sumDiscount(SpecialOffer specialOffer){
+//        if(this.discount == null)
+//            this.discount = (double) 0;
+//        this.discount += specialOffer.discount;
+//        return this;
+//    }
 }

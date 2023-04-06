@@ -2,7 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="~{fragments/header :: head}"></div>
-    <title>Pizzeria</title>
 </head>
 <body th:with="edit=${specialOffer.id != null}">
 
@@ -26,7 +25,7 @@
                     </div>
                     <div>
                         <label class="form-label" for="discount"> Sconto % </label>
-                        <input class="form-control" type="number" id="discount" th:field="*{discount}" th:errorClass="is-invalid">
+                        <input class="form-control" type="number" step="0.1" id="discount" th:field="*{discount}" th:errorClass="is-invalid">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('discount')}">
                             <ul>
                                 <li th:each="err : ${#fields.errors('discount')}" th:text="${err}"></li>

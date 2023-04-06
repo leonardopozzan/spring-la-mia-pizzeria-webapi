@@ -2,7 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="~{fragments/header :: head}"></div>
-    <title>Pizzeria</title>
 </head>
 <body>
 
@@ -15,7 +14,7 @@
             <div class="col-4 me-3 position-relative">
                 <img th:if="${#strings.isEmpty(pizza.image)}" src="https://picsum.photos/id/23/1920/1080" alt="">
                 <img th:unless="${#strings.isEmpty(pizza.image)}" th:src="${pizza.image}" alt="">
-                <div th:if="${pizza.specialOffers.size > 0}" class="discount" th:text="|${pizza.totalDiscount} %|"></div>
+                <div th:if="${pizza.discountedPrice}" class="discount" th:text="|${pizza.totalDiscount} %|"></div>
             </div>
             <div class="text-capitalize col-3">
                 <dl th:object="${pizza}">

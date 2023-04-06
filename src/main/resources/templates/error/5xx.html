@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/error5xx.css">
+    <script src="/js/script5xx.js" defer></script>
+    <link rel="icon" th:href="@{/images/dish-drop-rb-01.png}" type="image/x-icon"/>
+
+    <title>Error [[${status}]]</title>
+</head>
+<body>
+<section class="centered">
+    <h1>[[${status}]] Server Error</h1>
+    <div class="container">
+        <span class="message" id="js-whoops"></span> <span class="message" id="js-appears"></span> <span class="message" id="js-error"></span> <span class="message" id="js-apology"></span>
+        <div><span class="hidden" id="js-hidden">Message Here</span></div>
+    </div>
+
+</section>
+<div th:if="${exception}" class="details">
+    <!-- only in dev mode -->
+    <p th:text="${exception}"></p>
+    <p th:text="${trace}"></p>
+</div>
+
+</body>
+</html>

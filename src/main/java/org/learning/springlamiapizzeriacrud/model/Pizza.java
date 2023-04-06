@@ -109,21 +109,27 @@ public class Pizza {
         this.price = price;
     }
 
-    public Double getTotalDiscount(){
-        if(specialOffers.size() == 0)
-            return (double) 0;
-//        return specialOffers.stream()
-//                .filter(element -> !element.getStartingDate().isAfter(LocalDate.now()) && !element.getEndingDate().isBefore(LocalDate.now()))
-//                .map(item -> item.getDiscount())
-//                .reduce(0, (total, element) -> total + element);
+    public List<SpecialOffer> getActiveSpecialOffer(){
         return specialOffers.stream()
                 .filter(element -> !element.getStartingDate().isAfter(LocalDate.now()) && !element.getEndingDate().isBefore(LocalDate.now()))
+                .toList();
+    }
+    public Double getTotalDiscount(){
+        List<SpecialOffer> activeSpecialOffers = this.getActiveSpecialOffer();
+        if(activeSpecialOffers.size() == 0)
+            return (double) 0;
+//        return activeSpecialOffers.stream()
+//                .map(item -> item.getDiscount())
+//                .reduce(0, (total, element) -> total + element);
+        return activeSpecialOffers.stream()
                 .reduce(new SpecialOffer(), SpecialOffer::sumDiscount).getDiscount();
     }
 
     public Double getDiscountedPrice(){
-        if(specialOffers.size() == 0)
+        Double totalDiscount = this.getTotalDiscount();
+        if(totalDiscount == 0){
             return null;
-        return this.price * (1 - this.getTotalDiscount() / 100);
+        }
+        return (double) Math.round((this.price * (1 - totalDiscount / 100)) * 100) / 100;
     }
 }

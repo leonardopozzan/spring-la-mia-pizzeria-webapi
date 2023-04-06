@@ -12,7 +12,7 @@
         <h1 class="text-center my-4">Ingredienti</h1>
 
         <div class="text-center my-4">
-            <form action="/menu" method="get">
+            <form action="/ingredients" method="get">
                 <input type="text" name="name" th:value="${keyword}">
                 <button type="submit" class="btn btn-primary">Search</button>
             </form>
@@ -25,27 +25,23 @@
                 </div>
             </th:block>
             <div class="col-7 mb-2">
-                <a th:href="@{/menu/create}" class="btn btn-primary"><i class="fa-solid fa-plus"></i></a>
+                <a th:href="@{/ingredients/create}" class="btn btn-primary"><i class="fa-solid fa-plus"></i></a>
             </div>
             <table th:if="${list.size > 0}" class="col-7">
                 <thead>
                 <tr>
                     <td>Id</td>
                     <td>Name</td>
-                    <td>Price €</td>
                     <td></td>
                 </tr>
                 </thead>
-                <tbody th:each="pizza : ${list}" th:object="${pizza}" >
+                <tbody th:each="ingredient : ${list}" th:object="${ingredient}" >
                 <tr>
                     <td th:text="*{id}"></td>
-                    <td ><a th:href="@{|/menu/*{id}|}" th:text="*{name}"></a></td>
-                    <td >[[*{price}]] &euro;</td>
+                    <td th:text="*{name}" ></td>
                     <td class="d-flex">
-                        <a class="btn btn-primary me-3" th:href="@{|/menu/edit/*{id}|}" ><i class="fa-solid fa-pencil"></i></a>
-                        <form method="get"  th:action="@{|/menu/delete/*{id}|}" >
-                            <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
-                        </form>
+                        <a class="btn btn-primary me-3" th:href="@{|/ingredients/edit/*{id}|}" ><i class="fa-solid fa-pencil"></i></a>
+                        <a class="btn btn-danger" th:href="@{|/ingredients/delete/*{id}|}" ><i class="fa-solid fa-trash-can"></i></a>
                     </td>
                 </tr>
                 </tbody>

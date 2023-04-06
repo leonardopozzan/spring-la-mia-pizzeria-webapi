@@ -11,10 +11,11 @@
         <h1 class="text-center mt-4 mb-5">Dettagli della pizza</h1>
 
         <div class="d-flex justify-content-center flex-wrap">
-            <div class="col-4 me-3 position-relative">
+            <div class="col-4 me-3 position-relative img-box">
                 <img th:if="${#strings.isEmpty(pizza.image)}" src="https://picsum.photos/id/23/1920/1080" alt="">
                 <img th:unless="${#strings.isEmpty(pizza.image)}" th:src="${pizza.image}" alt="">
                 <div th:if="${pizza.discountedPrice}" class="discount" th:text="|${pizza.totalDiscount} %|"></div>
+                <div class="edit"><a class="btn btn-success" th:href="@{|/menu/edit/${pizza.id}|}"><i class="fa-solid fa-pencil"></i></a></div>
             </div>
             <div class="text-capitalize col-3">
                 <dl th:object="${pizza}">
@@ -27,14 +28,23 @@
                         <span th:text="*{price}" th:classAppend="*{discountedPrice} ? text-decoration-line-through : ''"></span>
                         <span th:if="*{discountedPrice}" th:text="*{discountedPrice}" class="text-danger" ></span>
                         <span th:classAppend="*{discountedPrice} ? text-danger : ''">&nbsp;&euro;</span>
-
                     </dd>
-                    <th:block th:unless="${#strings.isEmpty(pizza.description)}">
+                    <th:block th:if="${pizza.ingredients.size > 0}">
                         <dt>Ingredienti</dt>
-                        <dd th:text="*{description}"></dd>
+                        <dd>
+                            <span th:each="ingredient : ${pizza.ingredients}" th:text="|${ingredient.name} |"></span>
+                        </dd>
                     </th:block>
                 </dl>
             </div>
+            <th:block th:unless="${#strings.isEmpty(pizza.description)}">
+                <div class="col-7 me-3 mt-3 text-capitalize">
+                    <dl>
+                        <dt>Descrizione</dt>
+                        <dd th:text="${pizza.description}"></dd>
+                    </dl>
+                </div>
+            </th:block>
             <div class="col-8">
                 <div class="d-flex align-items-center">
                     <h3 class="my-3">Lista delle Offerte</h3>

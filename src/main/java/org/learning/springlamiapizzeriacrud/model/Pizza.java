@@ -19,9 +19,7 @@ public class Pizza {
     @Size(max = 50, message = "Il nome non deve superare i 50 caratteri")
     @Column(nullable = false, unique = true)
     private String name;
-    @NotEmpty
     @Lob
-    @Column(nullable = false)
     private String description;
     @PositiveOrZero
     @Column(nullable = false)
@@ -33,25 +31,42 @@ public class Pizza {
 
     @OneToMany(mappedBy = "pizza")
     private List<SpecialOffer> specialOffers;
-
+    @NotEmpty(message = "Devi selezionare almenon un ingrediente")
+    @ManyToMany
+    @JoinTable(
+            name = "ingredient_pizza",
+            joinColumns = @JoinColumn(name = "pizza_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
+    private List<Ingredient> ingredients;
 
     public Pizza(){
         super();
     }
 
     public Pizza(Pizza pizza){
-        this.name = pizza.getName();
-        this.price = pizza.getPrice();
-        this.description = pizza.getDescription();
-        this.image = pizza.getImage();
+        this.name = pizza.name;
+        this.price = pizza.price;
+        this.description = pizza.description;
+        this.image = pizza.image;
         this.createdAt = LocalDateTime.now();
+        this.ingredients = pizza.ingredients;
     }
 
     public void copyFrom(Pizza pizza){
-        this.name = pizza.getName();
-        this.price = pizza.getPrice();
-        this.description = pizza.getDescription();
-        this.image = pizza.getImage();
+        this.name = pizza.name;
+        this.price = pizza.price;
+        this.description = pizza.description;
+        this.image = pizza.image;
+        this.ingredients = pizza.ingredients;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public List<SpecialOffer> getSpecialOffers() {

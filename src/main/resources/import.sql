@@ -15,9 +15,43 @@ INSERT INTO pizzeria.special_offers(ending_date, starting_date, title, pizza_id,
 
 INSERT INTO pizzeria.special_offers(ending_date, starting_date, title, pizza_id, discount) VALUES('2023-05-25', '2023-05-05', 'offerta di maggio', 3, 5);
 INSERT INTO pizzeria.special_offers(ending_date, starting_date, title, pizza_id, discount) VALUES('2023-04-25', '2023-04-02', 'offerta di primavera', 3, 7);
-INSERT INTO pizzeria.special_offers(ending_date, starting_date, title, pizza_id, discount) VALUES('2023-02-25', '2023-02-05', 'offerta di febbraio', 3);
+INSERT INTO pizzeria.special_offers(ending_date, starting_date, title, pizza_id, discount) VALUES('2023-02-25', '2023-02-05', 'offerta di febbraio', 3, 3);
 
-INSERT INTO pizzeria.special_offers(ending_date, starting_date, title, pizza_id, discount) VALUES('2023-05-25', '2023-05-05', 'offerta di maggio', 4), 5;
+INSERT INTO pizzeria.special_offers(ending_date, starting_date, title, pizza_id, discount) VALUES('2023-05-25', '2023-05-05', 'offerta di maggio', 4, 5);
 INSERT INTO pizzeria.special_offers(ending_date, starting_date, title, pizza_id, discount) VALUES('2023-04-25', '2023-04-02', 'offerta di primavera', 4, 7);
 INSERT INTO pizzeria.special_offers(ending_date, starting_date, title, pizza_id, discount) VALUES('2023-04-25', '2023-04-02', 'offerta bambini', 4, 9);
 INSERT INTO pizzeria.special_offers(ending_date, starting_date, title, pizza_id, discount) VALUES('2023-02-25', '2023-02-05', 'offerta di febbraio', 4, 3);
+
+INSERT INTO pizzeria.ingredients(name)VALUES('pomodoro');
+INSERT INTO pizzeria.ingredients(name)VALUES('mozzarella');
+INSERT INTO pizzeria.ingredients(name)VALUES('basilico');
+INSERT INTO pizzeria.ingredients(name)VALUES('prosciutto');
+INSERT INTO pizzeria.ingredients(name)VALUES('funghi');
+INSERT INTO pizzeria.ingredients(name)VALUES('speck');
+INSERT INTO pizzeria.ingredients(name)VALUES('salsiccia');
+INSERT INTO pizzeria.ingredients(name)VALUES('salamino');
+INSERT INTO pizzeria.ingredients(name)VALUES('papatine fritte');
+
+
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(1, 1);
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(1, 2);
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(1, 3);
+
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(2, 1);
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(2, 2);
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(2, 4);
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(2, 5);
+
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(3, 1);
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(3, 2);
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(3, 8);
+
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(4, 1);
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(4, 2);
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(4, 9);
+
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(5, 1);
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(5, 2);
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(5, 5);
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(5, 6);
+INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(5, 7);

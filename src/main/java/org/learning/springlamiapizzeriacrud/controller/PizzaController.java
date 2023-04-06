@@ -4,8 +4,10 @@ import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.learning.springlamiapizzeriacrud.exceptions.PizzaNotFoundException;
 import org.learning.springlamiapizzeriacrud.model.AlertMessage;
+import org.learning.springlamiapizzeriacrud.model.Ingredient;
 import org.learning.springlamiapizzeriacrud.model.Pizza;
 import org.learning.springlamiapizzeriacrud.repository.PizzaRepository;
+import org.learning.springlamiapizzeriacrud.service.IngredientService;
 import org.learning.springlamiapizzeriacrud.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
@@ -30,6 +32,8 @@ public class PizzaController {
     @Autowired
     private PizzaService pizzaService;
 
+    @Autowired
+    private IngredientService ingredientService;
     @GetMapping()
     public String index(Model model, @RequestParam( name = "name") Optional<String> name){
         List<Pizza> pizzas = new ArrayList<>();
@@ -56,6 +60,7 @@ public class PizzaController {
     @GetMapping("/create")
     public String create(Model model){
         model.addAttribute("pizza", new Pizza());
+        model.addAttribute("ingredients", ingredientService.getAllIngredients());
         return "pizzas/editCreate";
     }
 
@@ -65,6 +70,7 @@ public class PizzaController {
             bindingResult.addError(new FieldError("pizza", "name", formPizza.getName(), false, null, null, "Il nome deve essere unico"));
         }
         if(bindingResult.hasErrors()){
+            model.addAttribute("ingredients", ingredientService.getAllIngredients());
             return "pizzas/editCreate";
         }
         Pizza createdPizza = pizzaService.createPizza(formPizza);
@@ -76,6 +82,7 @@ public class PizzaController {
         try {
             Pizza pizza = pizzaService.getPizzaById(id);
             model.addAttribute("pizza" , pizza);
+            model.addAttribute("ingredients", ingredientService.getAllIngredients());
             return "pizzas/editCreate";
         } catch (PizzaNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza con id" + id + " non trovata");
@@ -88,6 +95,8 @@ public class PizzaController {
             bindingResult.addError(new FieldError("pizza", "name", formPizza.getName(), false, null, null, "Il nome deve essere unico"));
         }
         if(bindingResult.hasErrors()){
+            model.addAttribute("ingredients", ingredientService.getAllIngredients());
+            System.out.println(bindingResult);
             return "pizzas/editCreate";
         }
 

@@ -31,16 +31,6 @@ public class SpecialOffer {
     @JoinColumn(name="pizza_id", nullable = false)
     private Pizza pizza;
 
-
-    public SpecialOffer(Integer id, String title, Double discount , LocalDate startingDate, LocalDate endingDate, Pizza pizza) {
-        this.id = id;
-        this.title = title;
-        this.discount = discount;
-        this.startingDate = startingDate;
-        this.endingDate = endingDate;
-        this.pizza = pizza;
-    }
-
     public SpecialOffer(){
         super();
     }

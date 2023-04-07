@@ -55,3 +55,13 @@ INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(5, 2);
 INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(5, 5);
 INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(5, 6);
 INSERT INTO pizzeria.ingredient_pizza(pizza_id, ingredient_id)VALUES(5, 7);
+
+
+INSERT INTO users (email, first_name, last_name, password) VALUES('admin@gmail.com', 'admin', 'admin', '{noop}admin');
+INSERT INTO users (email, first_name, last_name, password) VALUES('leo@gmail.com', 'leo', 'poz','{noop}leo');
+
+INSERT INTO roles (id, name) VALUES(1, 'ADMIN');
+INSERT INTO roles (id, name) VALUES(2, 'USER');
+
+INSERT into users_roles(user_id, roles_id) VALUES(1, 1);
+INSERT into users_roles(user_id, roles_id) VALUES(2, 2);

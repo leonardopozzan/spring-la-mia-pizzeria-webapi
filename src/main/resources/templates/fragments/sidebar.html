@@ -7,7 +7,7 @@
                 <div>Tutte le Pizze</div>
             </a>
         </li>
-        <li>
+        <li sec:authorize="hasAuthority('ADMIN')" >
             <a href="/ingredients">
                 <i class="fa-solid fa-wheat-awn"></i>
                 <div>Tutti gli ingredienti</div>

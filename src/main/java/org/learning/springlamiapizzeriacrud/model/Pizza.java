@@ -30,16 +30,17 @@ public class Pizza {
     @PastOrPresent
     @Column(nullable = false, name = "created_at")
     private LocalDateTime createdAt;
-    @OneToMany(mappedBy = "pizza")
+    @OneToMany(mappedBy = "pizza", cascade = CascadeType.REMOVE)
     private List<SpecialOffer> specialOffers;
 
 
     @NotEmpty(message = "Devi selezionare almenon un ingrediente")
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "ingredient_pizza",
             joinColumns = @JoinColumn(name = "pizza_id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+
     )
     private List<Ingredient> ingredients;
 

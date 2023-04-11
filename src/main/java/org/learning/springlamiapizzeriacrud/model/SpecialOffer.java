@@ -1,5 +1,6 @@
 package org.learning.springlamiapizzeriacrud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -27,6 +28,7 @@ public class SpecialOffer {
     @PositiveOrZero
     @Column(nullable = false)
     private Double discount;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="pizza_id", nullable = false)
     private Pizza pizza;

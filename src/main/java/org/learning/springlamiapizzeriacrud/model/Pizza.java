@@ -1,10 +1,12 @@
 package org.learning.springlamiapizzeriacrud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,9 +30,10 @@ public class Pizza {
     @PastOrPresent
     @Column(nullable = false, name = "created_at")
     private LocalDateTime createdAt;
-
     @OneToMany(mappedBy = "pizza")
     private List<SpecialOffer> specialOffers;
+
+
     @NotEmpty(message = "Devi selezionare almenon un ingrediente")
     @ManyToMany
     @JoinTable(
@@ -50,7 +53,6 @@ public class Pizza {
         this.description = pizza.description;
         this.image = pizza.image;
         this.createdAt = LocalDateTime.now();
-        this.ingredients = pizza.ingredients;
     }
 
     public void copyFrom(Pizza pizza){
@@ -58,7 +60,6 @@ public class Pizza {
         this.price = pizza.price;
         this.description = pizza.description;
         this.image = pizza.image;
-        this.ingredients = pizza.ingredients;
     }
 
     public List<Ingredient> getIngredients() {
@@ -125,6 +126,8 @@ public class Pizza {
     }
 
     public List<SpecialOffer> getActiveSpecialOffer(){
+        if (specialOffers == null)
+            return new ArrayList<>();
         return specialOffers.stream()
                 .filter(element -> !element.getStartingDate().isAfter(LocalDate.now()) && !element.getEndingDate().isBefore(LocalDate.now()))
                 .toList();

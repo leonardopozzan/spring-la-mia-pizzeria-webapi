@@ -1,10 +1,12 @@
 package org.learning.springlamiapizzeriacrud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name="ingredients")
@@ -19,7 +21,7 @@ public class Ingredient {
     @Size(max = 50, message = "Il nome non deve superare i 50 caratteri")
     @Column(nullable = false, unique = true)
     private String name;
-
+    @JsonIgnore
     @ManyToMany(mappedBy = "ingredients")
     private List<Pizza> pizzas;
 
@@ -49,5 +51,18 @@ public class Ingredient {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ingredient that = (Ingredient) o;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getName(), that.getName()) && Objects.equals(getPizzas(), that.getPizzas());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getPizzas());
     }
 }

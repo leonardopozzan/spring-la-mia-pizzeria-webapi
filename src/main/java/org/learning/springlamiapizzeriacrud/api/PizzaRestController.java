@@ -5,6 +5,7 @@ import org.learning.springlamiapizzeriacrud.exceptions.IngredientNotFoundExcepti
 import org.learning.springlamiapizzeriacrud.exceptions.PizzaNotFoundException;
 import org.learning.springlamiapizzeriacrud.model.Ingredient;
 import org.learning.springlamiapizzeriacrud.model.Pizza;
+import org.learning.springlamiapizzeriacrud.service.IngredientService;
 import org.learning.springlamiapizzeriacrud.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,9 @@ public class PizzaRestController {
 
     @Autowired
     private PizzaService pizzaService;
+
+    @Autowired
+    private IngredientService ingredientService;
 
     @GetMapping
     public List<Pizza> index(@RequestParam(name = "name")Optional<String> search){
@@ -73,10 +77,16 @@ public class PizzaRestController {
             boolean success = pizzaService.deleteById(id);
             if (!success)
                 throw new ResponseStatusException(HttpStatus.CONFLICT, "Impossibile eliminare la pizza per offerte collegate ad essa");
+
             return Map.of("success", true);
         } catch (PizzaNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/ingredients")
+    public List<Ingredient> ingredients(){
+        return ingredientService.getAllIngredients();
     }
 
 }

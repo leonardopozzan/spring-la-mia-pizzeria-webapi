@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="d-flex flex-wrap mt-5">
+        <div class="d-flex flex-wrap">
             <div class="card col-3"  v-for="(pizza, i) in menu" :key="i">
                 <img v-if="pizza.image" class="card-img-top" :src="`${pizza.image}`" alt="Card image cap">
                 <img v-else class="card-img-top" src="https://picsum.photos/id/63/1920/1080" alt="">

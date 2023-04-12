@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -66,12 +68,12 @@ public class PizzaRestController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
+    public Map<String, Boolean> delete(@PathVariable Integer id) {
         try {
             boolean success = pizzaService.deleteById(id);
-            if (!success) {
+            if (!success)
                 throw new ResponseStatusException(HttpStatus.CONFLICT, "Impossibile eliminare la pizza per offerte collegate ad essa");
-            }
+            return Map.of("success", true);
         } catch (PizzaNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

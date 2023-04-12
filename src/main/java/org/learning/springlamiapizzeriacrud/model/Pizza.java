@@ -30,7 +30,7 @@ public class Pizza {
     @PastOrPresent
     @Column(nullable = false, name = "created_at")
     private LocalDateTime createdAt;
-    @OneToMany(mappedBy = "pizza", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "pizza")
     private List<SpecialOffer> specialOffers;
 
 

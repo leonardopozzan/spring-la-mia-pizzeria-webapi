@@ -16,21 +16,34 @@
 </template>
 
 <script>
+import {store} from '../store';
 import axios from 'axios';
     export default {
         data(){
             return{
                 apiUrl : 'http://127.0.0.1:8080/api/v1',
                 menu: [],
+                store,
             }
         }, 
         methods: {
             getAllPizzas(){
-                axios.get(`${this.apiUrl}/menu`).then((response)=>{
+                const data = {
+                    params: {
+                        name : store.search
+                    }
+                }
+                axios.get(`${this.apiUrl}/menu`, data, ).then((response)=>{
                     console.log(response.data)
                     this.menu = response.data
                 })
             }
+        },
+        watch:{
+            'store.search'(){
+                this.getAllPizzas();
+            }
+            
         },
         mounted(){
             this.getAllPizzas()
